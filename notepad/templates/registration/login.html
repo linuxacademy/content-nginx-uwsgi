@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load bulma_filters %}
+
+{% block content %}
+
+<div class="columns is-desktop">
+  <div class="column"></div>
+  <div class="column is-half-desktop">
+    <h2 class="is-size-3">Log In</h2>
+
+    {% if form.errors %}
+      <article class="message is-danger">
+        <div class="message-header">
+          <p>Error</p>
+        </div>
+        <div class="message-body">
+          Your username and password didn't match. Please try again.
+        </div>
+      </article>
+    {% endif %}
+
+    {% if next %}
+      <article class="message">
+        <div class="message-body">
+          {% if user.is_authenticated %}
+            Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.
+          {% else %}
+            Please login to see this page.
+          {% endif %}
+        </div>
+      </article>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+
+      <div class="field">
+        {{ form.username|bulma_label }}
+        <div class="control">
+          {{ form.username|bulma_input }}
+        </div>
+      </div>
+
+      <div class="field">
+        {{ form.password|bulma_label }}
+        <div class="control">
+          {{ form.password|bulma_input }}
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <input type="submit" value="Login" class="button is-link" />
+        </div>
+        <div class="control">
+          <a href="{% url 'signup' %}" class="button is-text">
+            Don't have an account? Sign up.
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="column"></div>
+</div>
+
+{% endblock %}

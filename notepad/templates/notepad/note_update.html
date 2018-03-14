@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load bulma_filters %}
+
+{% block content %}
+
+  <h1 class="is-size-3">Edit Note: {{ form.instance.title }}</h1>
+
+  {% if error_message %}
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <div class="field">
+      <label class="label">{{ form.title|bulma_label }}</label>
+      <div class="control">{{ form.title|bulma_input }}</div>
+    </div>
+
+    <div class="field">
+      <label class="label">{{ form.body|bulma_label }}</label>
+      <div class="control">{{ form.body|bulma_textarea:"has-text-monospaced" }}</div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <input type="submit" value="Update Note" class="button is-primary" />
+      </div>
+      <div class="control">
+        <a href="{% url 'note_index' %}" class="button is-text">Cancel</a>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if not notes %}
+    <div class="content">
+      <p>You haven't created any notes! <a href="{% url 'new_note' %}">Create your first note.</a>
+    </div>
+  {% endif %}
+
+  {% for note in notes %}
+    <article class="message">
+      <div class="message-header">
+        <p>{{ note.title }}</p>
+        <div>
+          <a class="button is-primary is-small has-text-weight-bold" href="{% url 'edit_note' note.id %}">
+            Edit Note
+          </a>
+          <a class="button is-danger is-small has-text-weight-bold" href="{% url 'delete_note' note.id %}">
+            Delete Note
+          </a>
+        </div>
+      </div>
+      <div class="message-body content">
+        {{ note.body_html|safe }}
+      </div>
+    </article>
+  {% endfor %}
+{% endblock %}

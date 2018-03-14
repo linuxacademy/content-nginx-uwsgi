@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <div class="field">
+      <p>Are you sure you want to delete "{{ object }}"?</p>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <input type="submit" value="Confirm Delete" class="button is-danger" />
+      </div>
+      <div class="control">
+        <a href="{% url 'note_index' %}" class="button is-text">Cancel</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

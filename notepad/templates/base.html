@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Markdown Notes</title>
+    <link rel="stylesheet" href="{% static "notepad/css/bulma.min.css" %}">
+    <link rel="stylesheet" href="{% static "notepad/css/highlight.min.css" %}">
+    <link rel="stylesheet" href="{% static "notepad/css/styles.css" %}">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{% url 'note_index' %}">Notes</a>
+
+          <div class="navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="navbar-menu" id="navMenu">
+          <div class="navbar-end">
+            {% if request.user.is_authenticated %}
+              <a class="navbar-item" href="{% url 'new_note' %}" aria-label="New Note">
+                <i class="far fa-plus-square"></i>
+              </a>
+              <a class="navbar-item"  href="{% url 'logout' %}">
+                Log Out
+              </a>
+            {% else %}
+              <a class="navbar-item" href="{% url 'login' %}">
+                Log In
+              </a>
+              <a class="navbar-item" href="{% url 'signup' %}">
+                Sign Up
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% if messages %}
+      <div class="container">
+        {% for message in messages %}
+          <div id="message{{ forloop.counter}}">
+            {% if message.tags %}
+              {% if message.tags == 'error' %}
+                <div class="notification is-danger">
+              {% elif message.tags == 'warning' %}
+                <div class="notification is-warning">
+              {% elif message.tags == 'success' %}
+                <div class="notification is-success">
+              {% else %}
+                <div class="notification">
+              {% endif %}
+            {% else %}
+              <div class="notification">
+            {% endif %}
+              <button class="delete" data-target="message{{ forloop.counter }}" aria-label="delete"></button>
+              {{ message }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <section class="section">
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </section>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="{% static "notepad/js/highlight.min.js" %}"></script>
+    <script src="{% static "notepad/js/app.js" %}"></script>
+  </body>
+</html>
+

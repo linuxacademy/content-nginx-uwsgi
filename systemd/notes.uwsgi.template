@@ -1,0 +1,19 @@
+[Unit]
+Description=uWSGI Notes Application
+
+[Service]
+WorkingDirectory=${project_dir}
+User=nginx
+Group=nginx
+Environment=PIPENV_VENV_IN_PROJECT=true
+Environment=NOTES_DB=${db_name}
+Environment=NOTES_DB_USER=${db_user}
+Environment=NOTES_DB_PASSWORD=${db_password}
+Environment=NOTES_HOST=${host}
+ExecStart=/usr/bin/bash -c 'pipenv run uwsgi --ini ${project_dir}/notes/uwsgi.ini'
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+
+[Install]
+WantedBy=multi-user.target

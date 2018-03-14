@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load bulma_filters %}
+
+{% block content %}
+
+<div class="columns is-desktop">
+  <div class="column"></div>
+  <div class="column is-half-desktop">
+    <h2 class="is-size-3">Sign Up</h2>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div class="field">
+          {{ field|bulma_label }}
+          <div class="control">
+            {% if field.errors %}
+              {{ field|bulma_input:"is-danger" }}
+            {% else %}
+              {{ field|bulma_input }}
+            {% endif %}
+          </div>
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="field is-grouped">
+        <div class="control">
+          <input type="submit" value="Sign Up" class="button is-link">
+        </div>
+        <div class="control">
+          <a href="{% url 'login' %}" class="button is-text">
+            Already have an account? Log in.
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="column"></div>
+</div>
+
+{% endblock %}
