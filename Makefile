@@ -10,7 +10,7 @@ migrate:
 
 service:
 	./systemd/create_service.sh
-	chwon -R nginx:nginx .
+	chown -R nginx:nginx .
 	mkdir -p /run/uwsgi
 	chown -R nginx:nginx /run/uwsgi
 	mkdir -p /var/log/uwsgi
