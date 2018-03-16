@@ -10,6 +10,9 @@ class Note(models.Model):
     created_at = models.DateTimeField('date created', default=timezone.now, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        get_latest_by = "created_at"
+
     def body_html(self):
         return markdownify(self.body)
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'notepad.apps.NotepadConfig',
     'signup.apps.SignupConfig',
+    'landing.apps.LandingConfig',
 ]
 
 MIDDLEWARE = [
