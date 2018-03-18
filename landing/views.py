@@ -6,5 +6,9 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('note_index')
     else:
-        note = Note.objects.latest()
-        return render(request, 'landing/index.html', {'note': note})
+        try:
+            note = Note.objects.latest()
+        except:
+            return render(request, 'landing/index.html', {})
+        else:
+            return render(request, 'landing/index.html', {'note': note})
