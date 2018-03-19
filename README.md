@@ -22,7 +22,7 @@ The `Makefile` provides a few helper tasks to make setting up the application a 
 
 ### Environment Variables
 
-*Note:* for `make db_init` you'll need to have some environment variables set before running the command:
+*Note:* for `make migrate` you'll need to have some environment variables set before running the command:
 
 * `NOTES_DB` - The name of the database you've created.
 * `NOTES_DB_USER` - The database user that the application will use.
